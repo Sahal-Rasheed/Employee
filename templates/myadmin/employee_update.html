@@ -1,0 +1,48 @@
+{% extends 'myadmin/admin_base.html' %}
+
+{% block content %}
+
+<div>
+    {% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{message}}</strong>
+            </div>
+        {% else %}
+        <div></div>
+        {% endif%}
+    {% endfor %}
+    {% endif %}
+</div>
+
+  <!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Employee Update</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item active">Employee Update</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+    <!-- /.content-header -->
+
+<div class="container-fluid text-center">
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary">
+  </form>
+</div>
+
+{% endblock content %}

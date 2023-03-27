@@ -1,0 +1,84 @@
+{% extends 'myadmin/admin_base.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Employee List</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active">Employee List</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div>
+      {% if messages %}
+      {% for message in messages %}
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class="alert alert-success alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>{{message}}</strong>
+              </div>
+          {% else %}
+          <div></div>
+          {% endif%}
+      {% endfor %}
+      {% endif %}
+    </div>
+
+<div class="container-fluid">
+      <table id="employee" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Photo</th>
+            <th>Designation</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for employee in employees %}
+          <tr>
+            <td>{{employee.name}}</td>
+            <td>{{employee.email}}</td>
+            <td>{{employee.address}}</td>
+            <td><img src="{{employee.photo.url}}" height="20" width="50" class="rounded"></td>
+            <td>{{employee.designation}}</td>
+            <td><a href="{% url 'employee_update' employee.id %}"><i class="fa fa-edit"></i></a></td>
+            <td><a href="{% url 'employee_delete' employee.id %}"><i class="fa fa-trash text-danger"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+</div>
+<script>
+      $('#employee').DataTable({
+        paging:true,
+        pageLength:3,
+        lengthChange:true,
+        autoWidth:true,
+        searching:true,
+        bInfo:true,
+        bSort:true
+  
+      })
+</script>
+{% endblock content %}
